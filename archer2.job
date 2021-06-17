@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Slurm job options (name, compute nodes, job time)
+#SBATCH --job-name=noncontig
+#SBATCH --time=00:01:00
+#SBATCH --output=%x-%j.out
+#SBATCH --nodes=2
+#SBATCH --tasks-per-node=1
+#SBATCH --cpus-per-task=1
+# Replace [budget code] below with your budget code (e.g. t01)
+#SBATCH --account=z19
+#SBATCH --qos=short
+#SBATCH --partition=standard
+#SBATCH --reservation=shortqos
+
+echo "+------------------------------------------------------+"
+echo "| Start of contents of SLURM job script for job $SLURM_JOB_ID |"
+echo "+------------------------------------------------------+"
+
+cat $0
+
+echo "+------------------------------------------------------+"
+echo "|  End of contents of SLURM job script for job $SLURM_JOB_ID  |"
+echo "+------------------------------------------------------+"
+echo
+
+module --silent load epcc-job-env
+
+# Set the number of threads to 1
+#   This prevents any threaded system libraries from automatically
+#   using threading.
+
+srun --unbuffered --distribution=block:block --hint=nomultithread ./noncontig
