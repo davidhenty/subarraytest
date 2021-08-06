@@ -1,2 +1,2 @@
 # subarraytest
-Simple code to check non-blocking MPI functinality for Fortran subarrays
+Simple code to check non-blocking MPI functionality for Fortran subarrays
